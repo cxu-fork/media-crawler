@@ -64,6 +64,7 @@ class Karaoke(object):
         try:
             name = f'{date}-{name}.m4a'
             name = re.sub(r'[\/:*?"<>|]', '_', name)
+            name = name.strip().replace('\\','')
             name = re.sub(r'\s+', ' ', name)
             path_to_file = self.path + '/' + name
             if os.path.exists(path_to_file): return
