@@ -22,7 +22,7 @@ class Karaoke(object):
         self.get_songs(uid)
     
     def get_songs(self, uid: str) -> list:
-        url = 'https://node.kg.qq.com/cgi/fcgi-bin/kg_ugc_get_homepage?type=get_uinfo&start=%d&num=8&share_uid=%s'
+        url = 'https://node.kg.qq.com/cgi/fcgi-bin/kg_ugc_get_homepage?type=get_uinfo&start=%d&num=8&share_uid=%s&inCharset=utf-8&outCharset=utf-8'
         res = requests.get(url % (1, uid), headers=headers)
         if res.status_code != 200:
             print(res.status_code)
@@ -62,8 +62,9 @@ class Karaoke(object):
         
     def dlSong(self, url, name, date):
         try:
-            name += '-' + date + '.m4a'
-            name = re.sub(r'[\/:*?"<>|]', ' ', name)
+            name = f'{date}-{name}.m4a'
+            name = re.sub(r'[\/:*?"<>|]', '_', name)
+            name = re.sub(r'\s+', ' ', name)
             path_to_file = self.path + '/' + name
             if os.path.exists(path_to_file): return
 
