@@ -59,7 +59,7 @@ class Karaoke(object):
         for song_id, song_name, song_date in zip(self.songs_id, self.songs_name, self.songs_date):
             epoch = song_date
             song_date_ = time.strftime("%Y-%m-%d", time.localtime(int(song_date)))
-            self.dlSong(url % song_id, song_name, song_date, epoch)
+            self.dlSong(url % song_id, song_name, song_date_, epoch)
         
     def dlSong(self, url, name, date, epoch):
         try:
