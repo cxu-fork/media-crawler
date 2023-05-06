@@ -62,7 +62,7 @@ class Karaoke(object):
         
     def dlSong(self, url, name, date):
         try:
-            name = f'{date}-{name}.m4a'
+            name = f'{date}-{name}-{self.songs_date}.m4a'
             name = re.sub(r'[\/:*?"<>|]', '_', name)
             name = name.strip().replace('\\','')
             name = re.sub(r'\s+', ' ', name)
