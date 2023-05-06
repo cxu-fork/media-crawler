@@ -57,12 +57,13 @@ class Karaoke(object):
 
         url = 'https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=%s'
         for song_id, song_name, song_date in zip(self.songs_id, self.songs_name, self.songs_date):
-            song_date = time.strftime("%Y-%m-%d", time.localtime(int(song_date)))
-            self.dlSong(url % song_id, song_name, song_date)
+            epoch = song_date
+            song_date_ = time.strftime("%Y-%m-%d", time.localtime(int(song_date)))
+            self.dlSong(url % song_id, song_name, song_date, epoch)
         
-    def dlSong(self, url, name, date):
+    def dlSong(self, url, name, date, epoch):
         try:
-            name = f'{date}-{name}-{self.songs_date}.m4a'
+            name = f'{date}-{name}-{epoch}.m4a'
             name = re.sub(r'[\/:*?"<>|]', '_', name)
             name = name.strip().replace('\\','')
             name = re.sub(r'\s+', ' ', name)
