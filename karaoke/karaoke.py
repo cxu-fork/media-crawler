@@ -83,7 +83,7 @@ class Karaoke(object):
                 file.save()
         except:
             print('try download the song again...')
-            self.dlSong(url, name, date, epoch)
+            self.dlSong(url, fname, date, epoch)
 
 if __name__ == '__main__':
     uid = input('Please input the karaoke share uid of the user: ')
