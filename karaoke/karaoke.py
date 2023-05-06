@@ -64,9 +64,9 @@ class Karaoke(object):
     def dlSong(self, url, name, date, epoch):
         try:
             fname = f'{date}-{name}-{epoch}.m4a'
-            fname = re.sub(r'[\/:*?"<>|]', '_', name)
-            fname = name.strip().replace('\\','')
-            fname = re.sub(r'\s+', ' ', name)
+            fname = re.sub(r'[\/:*?"<>|]', '_', fname)
+            fname = fname.strip().replace('\\','')
+            fname = re.sub(r'\s+', ' ', fname)
             path_to_file = self.path + '/' + fname
             if os.path.exists(path_to_file): return
 
