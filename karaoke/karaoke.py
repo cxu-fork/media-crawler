@@ -72,7 +72,7 @@ class Karaoke(object):
 
             song = requests.get(url)
             if song:
-                print(name)
+                print(fname)
                 with open(path_to_file, 'wb') as f:
                     f.write(song.content)
 
