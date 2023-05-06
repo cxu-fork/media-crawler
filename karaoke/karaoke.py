@@ -57,17 +57,17 @@ class Karaoke(object):
 
         url = 'https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=%s'
         for song_id, song_name, song_date in zip(self.songs_id, self.songs_name, self.songs_date):
-            epoch = song_date
-            song_date_ = time.strftime("%Y-%m-%d", time.localtime(int(song_date)))
-            self.dlSong(url % song_id, song_name, song_date_, epoch)
+#             epoch = song_date
+#             song_date_ = time.strftime("%Y-%m-%d", time.localtime(int(song_date)))
+            self.dlSong(url % song_id, song_name, time.strftime("%Y-%m-%d", time.localtime(int(song_date))), song_date)
         
     def dlSong(self, url, name, date, epoch):
         try:
-            name = f'{date}-{name}-{epoch}.m4a'
-            name = re.sub(r'[\/:*?"<>|]', '_', name)
-            name = name.strip().replace('\\','')
-            name = re.sub(r'\s+', ' ', name)
-            path_to_file = self.path + '/' + name
+            fname = f'{date}-{name}-{epoch}.m4a'
+            fname = re.sub(r'[\/:*?"<>|]', '_', name)
+            fname = name.strip().replace('\\','')
+            fname = re.sub(r'\s+', ' ', name)
+            path_to_file = self.path + '/' + fname
             if os.path.exists(path_to_file): return
 
             song = requests.get(url)
@@ -77,13 +77,13 @@ class Karaoke(object):
                     f.write(song.content)
 
                 file = music_tag.load_file(path_to_file)
-                file['title'] = name[:name.find('-')]
+                file['title'] = name
                 file['artist'] = self.artist
                 file['year'] = date
                 file.save()
         except:
             print('try download the song again...')
-            self.dlSong(url, name, date)
+            self.dlSong(url, name, date, epoch)
 
 if __name__ == '__main__':
     uid = input('Please input the karaoke share uid of the user: ')
